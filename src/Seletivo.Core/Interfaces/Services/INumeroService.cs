@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace Seletivo.Core.Interfaces.Services
 {
+    /// <summary>
+    /// Interface que terá o papel de contrato de serviço de domínio da entidade Número
+    /// </summary>
     public interface INumeroService
     {
+        /// <summary>
+        /// Método que será utilizado para calcular Fatorial
+        /// </summary>
         Numero CalcularFatorial(Numero numero);
-        int CalcularFatorial(int numero);
-        int Factorial_Recursion(int numero);
-
-        int Factorial_WhileLoop(int numero);
     }
 }

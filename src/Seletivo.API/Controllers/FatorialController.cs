@@ -1,14 +1,7 @@
-﻿
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Seletivo.API.ConverterEntidades;
 using Seletivo.API.ViewModels;
 using Seletivo.Core.Interfaces.Services;
-using Seletivo.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Seletivo.API.Controllers
 {
@@ -24,24 +17,22 @@ namespace Seletivo.API.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        public ActionResult<NumeroViewModel> Get()
-        {
-            return Ok();
-        }
-
-        [HttpGet]
         [Route("{numero:int}")]
         public ActionResult<NumeroViewModel> Get(int numero)
         {
             NumeroViewModel viewModel = new NumeroViewModel();
             viewModel.Valor = numero;
 
-            return NumeroToNumeroViewModel.ConverterParaNumeroNumeroViewModel(
-                _numeroService.CalcularFatorial(
-                    NumeroViewModelToNumero.ConverterParaNumero(viewModel)
-                    )
-                );
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            if (numero < 1)
+            {
+                return BadRequest("O mínimo valor aceito é 1");
+            }
+
+            return EfetuarConversao(viewModel);
         }
 
         [HttpPost]
@@ -54,9 +45,17 @@ namespace Seletivo.API.Controllers
                 return BadRequest();
             }
 
+            return EfetuarConversao(numero);
+        }
+
+        /// <summary>
+        /// Método utilizado para efetuar a conversão da Entidade Número para Número View  Model.
+        /// </summary>
+        private NumeroViewModel EfetuarConversao (NumeroViewModel numeroViewModel)
+        {
             return NumeroToNumeroViewModel.ConverterParaNumeroNumeroViewModel(
                 _numeroService.CalcularFatorial(
-                    NumeroViewModelToNumero.ConverterParaNumero(numero)
+                    NumeroViewModelToNumero.ConverterParaNumero(numeroViewModel)
                     )
                 );
         }

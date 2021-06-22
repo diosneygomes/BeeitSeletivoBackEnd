@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Seletivo.Core.Models
 {
+    /// <summary>
+    /// Modelo de entidade abstrata que servirá como base para as demais entidades do sistema. 
+    /// </summary>
     public abstract class Entity
     {
         public Guid Id { get; set; }

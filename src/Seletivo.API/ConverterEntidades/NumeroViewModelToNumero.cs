@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Seletivo.API.ConverterEntidades
 {
+    /// <summary>
+    /// Classe que tem como papel efetuar a conversão da entidade NumeroViewModel para Número 
+    /// </summary>
     public static class NumeroViewModelToNumero
     {
         public static Numero ConverterParaNumero(NumeroViewModel numeroViewModel)
